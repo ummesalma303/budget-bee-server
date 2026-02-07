@@ -3,7 +3,7 @@ import cors from "cors";
 import express from "express";
 
 const app = express();
-app.use(cors())
+app.use(cors());
 const port = process.env.PORT ?? "9001";
 
 app.get("/", middleware);
