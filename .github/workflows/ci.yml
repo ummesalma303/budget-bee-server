@@ -18,13 +18,11 @@ jobs:
 
       - name: Install pnpm
         uses: pnpm/action-setup@v4
-        with:
-          version: 10 # আপনার package.json এ pnpm@10.28.2 আছে
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 22 # Volta সাধারণত লেটেস্ট LTS বা আপনার পিন করা ভার্সন ব্যবহার করে
+          node-version-file: "package.json"
           cache: "pnpm"
 
       - name: Install dependencies
