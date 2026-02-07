@@ -1,11 +1,13 @@
+import { middleware } from "#middlewares/middleware.js";
 import express from "express";
-const app = express();
-const port = "5000";
+import cors from "cors"
+// import dotenv from 'dotenv'
 
-app.get("/", (req, res) => {
-  res.send("Hello World!");
-  console.log("Response sent");
-});
+const app = express();
+app.use(cors())
+const port = process.env.PORT ?? "9001";
+
+app.get("/", middleware);
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
