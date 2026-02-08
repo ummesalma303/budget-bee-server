@@ -1,41 +1,41 @@
 name: CI
 
 on:
-  push:
-    branches:
-      - main
-  pull_request:
-    branches:
-      - main
+    push:
+        branches:
+            - main
+    pull_request:
+        branches:
+            - main
 
 jobs:
-  quality-checks:
-    runs-on: ubuntu-latest
+    quality-checks:
+        runs-on: ubuntu-latest
 
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v4
 
-      - name: Install pnpm
-        uses: pnpm/action-setup@v4
+            - name: Install pnpm
+              uses: pnpm/action-setup@v4
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version-file: "package.json"
-          cache: "pnpm"
+            - name: Setup Node.js
+              uses: actions/setup-node@v4
+              with:
+                  node-version-file: 'package.json'
+                  cache: 'pnpm'
 
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+            - name: Install dependencies
+              run: pnpm install --frozen-lockfile
 
-      - name: Run tests
-        run: pnpm run test:run
+            - name: Run tests
+              run: pnpm run test:run
 
-      - name: Run TypeScript type checking
-        run: pnpm run type-check
+            - name: Run TypeScript type checking
+              run: pnpm run type-check
 
-      - name: Run ESLint
-        run: pnpm run lint
+            - name: Run ESLint
+              run: pnpm run lint
 
-      - name: Check formatting with Prettier
-        run: pnpm run format:check
+            - name: Check formatting with Prettier
+              run: pnpm run format:check
