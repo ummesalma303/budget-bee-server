@@ -5,11 +5,13 @@ import vitest from "@vitest/eslint-plugin";
 
 export default tseslint.config(
   {
-    ignores: ["**/*.js"],
+    ignores: ["dist/**", "node_modules/**", "*.js"],
   },
+
   eslint.configs.recommended,
-  tseslint.configs.strictTypeChecked,
-  tseslint.configs.stylisticTypeChecked,
+  ...tseslint.configs.strictTypeChecked,
+  ...tseslint.configs.stylisticTypeChecked,
+
   {
     languageOptions: {
       parserOptions: {
@@ -20,10 +22,8 @@ export default tseslint.config(
   },
   perfectionist.configs["recommended-natural"],
   {
-    files: ["**/*.test.ts", "**/*.spec.ts"],
-    plugins: {
-      vitest,
-    },
+    files: ["**/*.{test,spec}.ts"],
+    plugins: { vitest },
     rules: {
       ...vitest.configs.recommended.rules,
       "@typescript-eslint/unbound-method": "off",
