@@ -1,3 +1,4 @@
+import globalErrorHandler from '#middlewares/globalErrorHandler.js'
 import { middleware } from '#middlewares/middleware.js'
 import router from '#modules/expense/expense.routes.js'
 import cors from 'cors'
@@ -15,5 +16,5 @@ app.use(cors())
 app.use(express.static(path.join(__dirname, '../', 'public')))
 app.get('/', middleware)
 app.use('/api/v1', router)
-
+app.use(globalErrorHandler)
 export default app

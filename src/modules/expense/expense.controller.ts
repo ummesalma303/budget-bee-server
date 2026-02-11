@@ -1,15 +1,16 @@
 import responseMessage from '#constant/responseMessage.js'
+import { httpError } from '#utils/httpError.js'
 import { httpResponse } from '#utils/httpResponse.js'
-import { Request, Response } from 'express'
+import { NextFunction, Request, Response } from 'express'
 
-const getExpenses = (req: Request, res: Response): void => {
+const getExpenses = (req: Request, res: Response, next: NextFunction): void => {
     try {
+        throw new Error('thi is an err')
+
         // The await logic is gone, so the 'async' keyword is removed
-        httpResponse(req, res, 200, responseMessage.SUCCESS)
+        httpResponse(req, res, 200, responseMessage.SUCCESS, { id: 1 })
     } catch (error) {
-        res.status(400).json({
-            error: error instanceof Error ? error.message : 'Unknown server error'
-        })
+        httpError(next, error, req, 500)
     }
 }
 
