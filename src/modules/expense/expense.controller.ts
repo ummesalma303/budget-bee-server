@@ -5,7 +5,7 @@ import { NextFunction, Request, Response } from 'express'
 
 const getExpenses = (req: Request, res: Response, next: NextFunction): void => {
     try {
-        throw new Error('thi is an err')
+        // throw new Error('thi is an err')
 
         // The await logic is gone, so the 'async' keyword is removed
         httpResponse(req, res, 200, responseMessage.SUCCESS, { id: 1 })
