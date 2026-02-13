@@ -3,6 +3,8 @@ import { EApplicationEnvironment } from '#constant/application.js'
 import { THttpResponse } from '#types/type.js'
 import { Request, Response } from 'express'
 
+import logger from './logger.js'
+
 const httpResponse = (req: Request, res: Response, responseStatusCode: number, responseMessage: string, data: unknown = null): void => {
     const response: THttpResponse = {
         data: data,
@@ -17,7 +19,7 @@ const httpResponse = (req: Request, res: Response, responseStatusCode: number, r
     }
 
     // Log
-    console.info(`CONTROLLER_RESPONSE`, {
+    logger.info(`CONTROLLER_RESPONSE`, {
         meta: response
     })
 

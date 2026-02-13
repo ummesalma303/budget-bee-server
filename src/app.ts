@@ -17,6 +17,9 @@ app.use(cors())
 app.use(express.static(path.join(__dirname, '../', 'public')))
 app.get('/', middleware)
 app.use('/api/v1', router)
+
+// error handler
+
 app.use(notFound)
 app.use(globalErrorHandler)
 export default app

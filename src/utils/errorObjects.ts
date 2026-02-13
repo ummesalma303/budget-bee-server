@@ -4,6 +4,8 @@ import responseMessage from '#constant/responseMessage.js'
 import { THttpError } from '#types/type.js'
 import { Request } from 'express'
 
+import logger from './logger.js'
+
 const errorObjectFunc = (err: unknown, req: Request, errorStatusCode = 500): THttpError => {
     const errorObj: THttpError = {
         data: null,
@@ -19,7 +21,8 @@ const errorObjectFunc = (err: unknown, req: Request, errorStatusCode = 500): THt
     }
 
     // Log
-    console.info(`CONTROLLER_ERROR`, {
+
+    logger.info(`CONTROLLER_ERROR`, {
         meta: errorObj
     })
 
