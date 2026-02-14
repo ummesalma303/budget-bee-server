@@ -1,5 +1,6 @@
 import config from '#config/config.js'
 import { EApplicationEnvironment } from '#constant/application.js'
+import { blue, green, magenta, red, yellow } from 'colorette'
 import path from 'path'
 import util from 'util'
 import winston from 'winston'
@@ -7,16 +8,30 @@ import winston from 'winston'
 const { createLogger, format, transports } = winston
 const { colorize, combine, printf, timestamp } = format
 
-/* ===============================
-   Console Format (Dev Friendly)
-================================ */
+/* ------------------------------------ colorful terminal ----------------------------------- */
+const colorLevel = (level: unknown): string => {
+    const strLevel = String(level).toUpperCase() // coerce safely
+    switch (strLevel) {
+        case 'ERROR':
+            return red(strLevel)
+        case 'INFO':
+            return green(strLevel)
+        case 'WARN':
+            return yellow(strLevel)
+        default:
+            return red(strLevel)
+    }
+}
+
+/* ---------------------- Console Format (Dev Friendly) --------------------- */
 const consoleFormat = printf((info) => {
     const level = info.level
     const message = String(info.message)
     const time = info.timestamp as string
     const meta = info.meta ?? {}
 
-    return `${level.toUpperCase()} [${time}] ${message} ${util.inspect(meta, {
+    return `${colorLevel(level.toUpperCase())} [${blue(time)}] ${message} ${magenta('Meta')} ${util.inspect(meta, {
+        colors: true,
         depth: null,
         showHidden: false
     })}`
@@ -45,9 +60,7 @@ const fileFormat = printf((info) => {
     return `[${String(timestamp)}] ${level.toUpperCase()}: ${String(message)}${metaString}`
 })
 
-/* -------------------------------------------------------------------------- */
-/*                              Console Transport                             */
-/* -------------------------------------------------------------------------- */
+/* ---------------------------- Console Transport --------------------------- */
 const consoleTransport = () => {
     if (config.ENV === EApplicationEnvironment.DEVELOPMENT) {
         return [
@@ -61,9 +74,7 @@ const consoleTransport = () => {
     return []
 }
 
-/* -------------------------------------------------------------------------- */
-/*                               File Transport                               */
-/* -------------------------------------------------------------------------- */
+/* ---------------------------------- File Transport ---------------------------------------- */
 
 const fileTransport = () => {
     return [

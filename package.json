@@ -37,6 +37,7 @@
     "dependencies": {
         "@types/cors": "^2.8.19",
         "@types/winston": "^2.4.4",
+        "colorette": "^2.0.20",
         "cors": "^2.8.6",
         "dotenv-flow": "^4.1.0",
         "express": "^5.2.1",
