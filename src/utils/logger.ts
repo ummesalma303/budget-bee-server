@@ -1,16 +1,16 @@
 import config from '#config/config.js'
 import { EApplicationEnvironment } from '#constant/application.js'
-import { blue, green, magenta, red, yellow } from 'colorette'
+import { blue, cyan, green, magenta, red, yellow } from 'colorette'
 import path from 'path'
 import util from 'util'
 import winston from 'winston'
 
 const { createLogger, format, transports } = winston
-const { colorize, combine, printf, timestamp } = format
+const { combine, printf, timestamp } = format
 
 /* ------------------------------------ colorful terminal ----------------------------------- */
 const colorLevel = (level: unknown): string => {
-    const strLevel = String(level).toUpperCase() // coerce safely
+    const strLevel = String(level).toUpperCase()
     switch (strLevel) {
         case 'ERROR':
             return red(strLevel)
@@ -19,7 +19,7 @@ const colorLevel = (level: unknown): string => {
         case 'WARN':
             return yellow(strLevel)
         default:
-            return red(strLevel)
+            return cyan(strLevel)
     }
 }
 
@@ -30,7 +30,7 @@ const consoleFormat = printf((info) => {
     const time = info.timestamp as string
     const meta = info.meta ?? {}
 
-    return `${colorLevel(level.toUpperCase())} [${blue(time)}] ${message} ${magenta('Meta')} ${util.inspect(meta, {
+    return `LEVEL ${colorLevel(level.toUpperCase())} [${blue(time)}] ${message} ${magenta('Meta')} ${util.inspect(meta, {
         colors: true,
         depth: null,
         showHidden: false
@@ -65,7 +65,7 @@ const consoleTransport = () => {
     if (config.ENV === EApplicationEnvironment.DEVELOPMENT) {
         return [
             new transports.Console({
-                format: combine(timestamp({ format: 'YYYY-MM-DD HH:mm:ss' }), colorize(), consoleFormat),
+                format: combine(timestamp({ format: 'YYYY-MM-DD HH:mm:ss' }), consoleFormat),
                 level: 'info'
             })
         ]

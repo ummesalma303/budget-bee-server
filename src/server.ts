@@ -4,7 +4,11 @@ import logger from '#utils/logger.js'
 import { Server } from 'http'
 
 const server: Server = app.listen(config.PORT, () => {
-    logger.info('Example app listening on port', config.PORT)
+    logger.warn('Example app listening on port', {
+        meta: {
+            PORT: config.PORT
+        }
+    })
 
     logger.info('APPLICATION_STARTER', {
         meta: {

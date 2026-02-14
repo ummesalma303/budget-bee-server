@@ -4,18 +4,18 @@ import notFound from '#middlewares/notFound.js'
 import router from '#modules/expense/expense.routes.js'
 import cors from 'cors'
 import express, { Application } from 'express'
+import helmet from 'helmet'
 import path from 'path'
-import { fileURLToPath } from 'url'
 
 const app: Application = express()
 
-const __filename = fileURLToPath(import.meta.url)
-const __dirname = path.dirname(__filename)
-
 // Middleware
 app.use(cors())
-app.use(express.static(path.join(__dirname, '../', 'public')))
+app.use(helmet())
+app.use(express.static(path.join(process.cwd(), '../', 'public')))
 app.get('/', middleware)
+
+// router
 app.use('/api/v1', router)
 
 // error handler
