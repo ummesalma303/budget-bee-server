@@ -15,3 +15,7 @@ logs
 
 # Test coverage
 /coverage
+
+/src/generated/prisma
+
+/src/generated/prisma

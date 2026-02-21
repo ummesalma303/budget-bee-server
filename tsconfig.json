@@ -1,11 +1,25 @@
+// {
+//     "extends": "@tsconfig/node24/tsconfig.json",
+//     "compilerOptions": {
+//         "outDir": "./dist",
+//         "rootDir": "./src",
+//         "paths": {
+//             "@/*": ["./src/*"]
+//         },
+//             "types": ["node"]
+//     },
+//     "include": ["src"]
+// }
+
 {
     "extends": "@tsconfig/node24/tsconfig.json",
     "compilerOptions": {
         "outDir": "./dist",
-        "rootDir": "./src",
+        "rootDir": "./",
         "paths": {
             "@/*": ["./src/*"]
-        }
+        },
+        "types": ["node"]
     },
-    "include": ["src"]
+    "include": ["src", "prisma.config.ts"]
 }
