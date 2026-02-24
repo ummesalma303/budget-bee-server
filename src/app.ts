@@ -10,6 +10,7 @@ import path from 'path'
 const app: Application = express()
 
 // Middleware
+app.use(express.json())
 app.use(cors())
 app.use(helmet())
 app.use(express.static(path.join(process.cwd(), '../', 'public')))

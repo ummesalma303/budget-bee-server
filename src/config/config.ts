@@ -1,6 +1,4 @@
-// import DotenvFlow from 'dotenv-flow'
-
-// DotenvFlow.config()
+import 'dotenv/config'
 
 export default {
     DATABASE_URL: process.env.DATABASE_URL,
