@@ -8,4 +8,5 @@ const router = Router()
 router.route('/expense').get(getExpenses)
 router.route('/user').post(createUser)
 
-export default router
+const ExpenseRoutes = router
+export default ExpenseRoutes
