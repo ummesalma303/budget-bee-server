@@ -21,15 +21,15 @@
         "coverage": "vitest run --coverage",
         "prepare": "husky"
     },
-    "lint-staged": {
-        "*.{js,jsx,ts,tsx}": [
-            "eslint",
-            "prettier --check"
-        ],
-        "*.{json,yml,yaml,md}": [
-            "prettier --check"
-        ]
-    },
+   "lint-staged": {
+    "src/**/*.{js,jsx,ts,tsx}": [
+        "eslint --fix",
+        "prettier --write"
+    ],
+    "src/**/*.{json,yml,yaml,md}": [
+        "prettier --write"
+    ]
+},
     "keywords": [],
     "author": "",
     "license": "ISC",
