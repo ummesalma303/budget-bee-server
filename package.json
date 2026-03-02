@@ -23,11 +23,11 @@
     },
     "lint-staged": {
         "*.{js,jsx,ts,tsx}": [
-            "eslint",
-            "prettier --check"
+            "eslint --fix",
+            "prettier --write"
         ],
         "*.{json,yml,yaml,md}": [
-            "prettier --check"
+            "prettier --write"
         ]
     },
     "keywords": [],
@@ -46,6 +46,7 @@
         "express": "^5.2.1",
         "helmet": "^8.1.0",
         "logform": "^2.7.0",
+        "morgan": "^1.10.1",
         "pg": "^8.18.0",
         "winston": "^3.19.0",
         "winston-daily-rotate-file": "^5.0.0",
@@ -59,6 +60,7 @@
         "@tsconfig/node24": "^24.0.4",
         "@types/bcrypt": "^6.0.0",
         "@types/express": "^5.0.6",
+        "@types/morgan": "^1.9.10",
         "@types/node": "^25.2.1",
         "@types/pg": "^8.16.0",
         "@vitest/coverage-v8": "^4.0.18",
