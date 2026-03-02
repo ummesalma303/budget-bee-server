@@ -48,6 +48,7 @@
         "logform": "^2.7.0",
         "pg": "^8.18.0",
         "winston": "^3.19.0",
+        "winston-daily-rotate-file": "^5.0.0",
         "zod": "^4.3.6"
     },
     "devDependencies": {
