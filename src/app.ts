@@ -27,10 +27,10 @@ app.use(
     })
 )
 
-// router setup
+// Router setup
 app.use('/api/v1', router)
 
-// error handler
+// Error handler
 app.use(notFound)
 app.use(globalErrorHandler)
 export default app
