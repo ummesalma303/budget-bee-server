@@ -1,0 +1,5 @@
+model rateLimits {
+  key     String   @id
+  points  Int
+  expire  DateTime?
+}
