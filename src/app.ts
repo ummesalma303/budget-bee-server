@@ -1,6 +1,7 @@
 import globalErrorHandler from '#middlewares/globalErrorHandler.js'
 import { middleware } from '#middlewares/middleware.js'
 import notFound from '#middlewares/notFound.js'
+import rateLimitMiddleware from '#middlewares/rateLimitMiddleware.js'
 import router from '#modules/expense/expense.routes.js'
 import logger from '#utils/logger.js'
 import cors from 'cors'
@@ -26,6 +27,9 @@ app.use(
         }
     })
 )
+
+// Rate limit middleware
+app.use(rateLimitMiddleware)
 
 // Router setup
 app.use('/api/v1', router)

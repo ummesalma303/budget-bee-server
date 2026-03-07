@@ -19,7 +19,11 @@
         "test:run": "vitest run",
         "test:ui": "vitest --ui",
         "coverage": "vitest run --coverage",
-        "prepare": "husky"
+        "prepare": "husky",
+        "db:migrate": "prisma migrate dev",
+        "db:push": "prisma db push",
+        "db:generate": "prisma generate",
+        "db:studio": "prisma studio"
     },
     "lint-staged": {
         "*.{js,jsx,ts,tsx}": [

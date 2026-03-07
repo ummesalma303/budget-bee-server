@@ -4,8 +4,8 @@ import { RateLimiterPrisma } from 'rate-limiter-flexible'
 
 // rate limit configuration
 const rateLimiter = new RateLimiterPrisma({
-    duration: 5,
-    points: 3,
+    duration: 60,
+    points: 10,
     storeClient: prisma,
     tableName: 'rateLimits'
 })
@@ -24,7 +24,7 @@ async function rateLimit(userId: string): Promise<void> {
             const rateLimitError = rejRes as { msBeforeNext: number }
             const secs = Math.round(rateLimitError.msBeforeNext / 1000) || 1
             logger.warn(`Rate limit exceeded. Wait ${String(secs)} seconds.`)
-            throw new Error(`Too many requests. Retry after ${String(secs)} seconds.`)
+            // throw new Error(`Too many requests. Retry after ${String(secs)} seconds.`)
         }
     }
 }
