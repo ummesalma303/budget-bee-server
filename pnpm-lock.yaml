@@ -43,6 +43,9 @@ importers:
             morgan:
                 specifier: ^1.10.1
                 version: 1.10.1
+            npm-check-updates:
+                specifier: ^19.6.3
+                version: 19.6.3
             pg:
                 specifier: ^8.18.0
                 version: 8.18.0
@@ -1765,6 +1768,11 @@ packages:
 
     node-gyp-build@4.8.4:
         resolution: { integrity: sha512-LA4ZjwlnUblHVgq0oBF3Jl/6h/Nvs5fzBLwdEF4nuxnFdsfajde4WfxtJr3CaiH+F6ewcIB/q4jQ4UzPyid+CQ== }
+        hasBin: true
+
+    npm-check-updates@19.6.3:
+        resolution: { integrity: sha512-VAt9Bp26eLaymZ0nZyh5n/by+YZIuegXlvWR0yv1zBqd984f8VnEnBbn+1lS3nN5LyEjn62BJ+yYgzNSpb6Gzg== }
+        engines: { node: '>=20.0.0', npm: '>=8.12.1' }
         hasBin: true
 
     nypm@0.6.5:
@@ -4027,6 +4035,8 @@ snapshots:
     node-fetch-native@1.6.7: {}
 
     node-gyp-build@4.8.4: {}
+
+    npm-check-updates@19.6.3: {}
 
     nypm@0.6.5:
         dependencies:
