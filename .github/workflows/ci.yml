@@ -18,8 +18,6 @@ jobs:
 
             - name: Install pnpm
               uses: pnpm/action-setup@v4
-              with:
-                  version: 9 # অথবা আপনার প্রজেক্টের ভার্সন অনুযায়ী
 
             - name: Setup Node.js
               uses: actions/setup-node@v4
