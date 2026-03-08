@@ -18,6 +18,8 @@ jobs:
 
             - name: Install pnpm
               uses: pnpm/action-setup@v4
+              with:
+                  version: 9 # অথবা আপনার প্রজেক্টের ভার্সন অনুযায়ী
 
             - name: Setup Node.js
               uses: actions/setup-node@v4
@@ -27,6 +29,9 @@ jobs:
 
             - name: Install dependencies
               run: pnpm install --frozen-lockfile
+
+            - name: Generate Prisma Client
+              run: pnpm exec prisma generate
 
             - name: Run tests
               run: pnpm run test:run
