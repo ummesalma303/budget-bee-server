@@ -1,4 +1,5 @@
 import responseMessage from '#constant/responseMessage.js'
+import { prisma } from '#lib/prisma.js'
 import { httpError } from '#utils/httpError.js'
 import { httpResponse } from '#utils/httpResponse.js'
 import { NextFunction, Request, Response } from 'express'
@@ -18,4 +19,12 @@ const createUser = async (req: Request, res: Response, next: NextFunction): Prom
     }
 }
 
-export { createUser }
+const getAllUser = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+    try {
+        const user = await prisma.user.findMany()
+        httpResponse(req, res, 201, responseMessage.SUCCESS, user)
+    } catch (error) {
+        httpError(next, error as Error, req, 500)
+    }
+}
+export { createUser, getAllUser }

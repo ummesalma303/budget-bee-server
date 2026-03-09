@@ -1,5 +1,5 @@
 import config from '#config/config.js'
-import rateLimit from '#config/rateLimiter.js'
+import rateLimit from '#config/rateLimit.js'
 import { EApplicationEnvironment } from '#constant/application.js'
 import responseMessage from '#constant/responseMessage.js'
 import { IAuthRequest } from '#types/request.js'
