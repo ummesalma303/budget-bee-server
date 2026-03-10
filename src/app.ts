@@ -2,8 +2,8 @@ import globalErrorHandler from '#middlewares/globalErrorHandler.js'
 import { middleware } from '#middlewares/middleware.js'
 import notFound from '#middlewares/notFound.js'
 import rateLimitMiddleware from '#middlewares/rateLimitMiddleware.js'
+import AuthRoutes from '#modules/auth/auth.route.js'
 import router from '#modules/expense/expense.routes.js'
-import UserRoutes from '#modules/users/users.route.js'
 import logger from '#utils/logger.js'
 import cors from 'cors'
 import express, { Application } from 'express'
@@ -34,7 +34,7 @@ app.use(rateLimitMiddleware)
 
 // Router setup
 app.use('/api/v1', router)
-app.use('/api/v1', UserRoutes)
+app.use('/api/v1', AuthRoutes)
 // Error handler
 app.use(notFound)
 app.use(globalErrorHandler)

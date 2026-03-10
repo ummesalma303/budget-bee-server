@@ -4,8 +4,8 @@ import { httpError } from '#utils/httpError.js'
 import { httpResponse } from '#utils/httpResponse.js'
 import { NextFunction, Request, Response } from 'express'
 
-import { createUserService } from './users.service.js'
-import { createUserSchema } from './users.validation.js'
+import { createUserService } from './auth.service.js'
+import { createUserSchema } from './auth.validation.js'
 
 const createUser = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {

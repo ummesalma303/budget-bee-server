@@ -1,7 +1,7 @@
 import { prisma } from '#lib/prisma.js'
 import bcrypt from 'bcrypt'
 
-import { CreateUserInput } from './users.validation.js'
+import { CreateUserInput } from './auth.validation.js'
 
 const createUserService = async (payload: CreateUserInput) => {
     const existingUser = await prisma.user.findUnique({
