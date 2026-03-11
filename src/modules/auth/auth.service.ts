@@ -1,5 +1,6 @@
 import { prisma } from '#lib/prisma.js'
-import bcrypt from 'bcrypt'
+import { hashPassword } from '#utils/hash.js'
+// import bcrypt from 'bcrypt'
 
 import { CreateUserInput } from './auth.validation.js'
 
@@ -12,7 +13,7 @@ const createUserService = async (payload: CreateUserInput) => {
         throw new Error('User already exists')
     }
 
-    const hashedPassword = await bcrypt.hash(payload.password, 10)
+    const hashedPassword = await hashPassword(payload.password)
 
     const user = await prisma.user.create({
         data: {
