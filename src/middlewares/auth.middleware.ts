@@ -1,18 +1,21 @@
-import { NextFunction, Request, Response } from 'express'
-// import { verifyToken } from "../utils/jwt";
+import { AuthRequest } from '#modules/auth/auth.interface.js'
+import { verifyAccessToken } from '#utils/jwt.js'
+import { NextFunction, Response } from 'express'
 
-export const authMiddleware = (req: Request, res: Response, next: NextFunction) => {
-    const token = req.headers.authorization?.split(' ')[1]
+export const authMiddleware = (req: AuthRequest, res: Response, next: NextFunction) => {
+    const authHeader = req.headers.authorization
 
-    if (!token) {
+    if (!authHeader) {
         return res.status(401).json({
             message: 'Unauthorized'
         })
     }
 
-    // const decoded = verifyToken(token);
+    const token = authHeader.split(' ')[1]
 
-    // (req as any).user = decoded;
+    const decoded = verifyAccessToken(token)
+
+    req.user = decoded
 
     next()
 }
