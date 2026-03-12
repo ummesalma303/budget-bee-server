@@ -1,8 +1,9 @@
 import { prisma } from '#lib/prisma.js'
-import { hashPassword } from '#utils/hash.js'
-// import bcrypt from 'bcrypt'
+import { comparePassword, hashPassword } from '#utils/hash.js'
+// import { generateAccessToken, generateRefreshToken } from '#utils/jwt.js'
+// import { Payload } from './../../generated/prisma/internal/prismaNamespace'
 
-import { CreateUserInput } from './auth.validation.js'
+import { CreateUserInput, LoginInput } from './auth.validation.js'
 
 const createUserService = async (payload: CreateUserInput) => {
     const existingUser = await prisma.user.findUnique({
@@ -19,16 +20,37 @@ const createUserService = async (payload: CreateUserInput) => {
         data: {
             email: payload.email,
             name: payload.name,
-            password: hashedPassword
+            password: hashedPassword,
+            role: payload.role
         },
         select: {
             email: true,
             id: true,
-            name: true
+            name: true,
+            role: true
         }
     })
 
     return user
 }
 
-export { createUserService }
+const loginUser = async (Payload: LoginInput) => {
+    const user = await prisma.user.findUnique({ where: { email: Payload.email } })
+
+    if (!user) {
+        throw new Error('User already exists')
+    }
+    const validUser = await comparePassword(Payload.password, user.password)
+    if (!validUser) throw new Error('Invalid credentials')
+
+    // const accessToken = generateAccessToken({role: user.role, userId: user.id })
+    // const refreshToken = generateRefreshToken({ role: user.role, userId: user.id })
+
+    // save hashed refresh token
+    // const hashedRefresh = await hashPassword(refreshToken)
+    // await prisma.user.update({  data: { refreshToken: hashedRefresh }, where: { id: user.id } })
+
+    // return { accessToken, refreshToken }
+}
+
+export { createUserService, loginUser }
