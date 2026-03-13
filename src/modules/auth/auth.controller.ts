@@ -4,7 +4,8 @@ import { httpError } from '#utils/httpError.js'
 import { httpResponse } from '#utils/httpResponse.js'
 import { NextFunction, Request, Response } from 'express'
 
-import { createUserService, loginUser } from './auth.service.js'
+import { AuthRequest } from './auth.interface.js'
+import { createUserService, loginUser, logoutUser } from './auth.service.js'
 import { createUserSchema, loginSchema } from './auth.validation.js'
 
 // register user
@@ -19,7 +20,7 @@ const createUser = async (req: Request, res: Response, next: NextFunction): Prom
 }
 
 // login user
-const login = async (req: Request, res: Response, next: NextFunction) => {
+const login = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
         const validatedData = loginSchema.parse(req.body)
         const tokens = await loginUser(validatedData)
@@ -38,7 +39,28 @@ const login = async (req: Request, res: Response, next: NextFunction) => {
         httpError(next, error as Error, req, 500)
     }
 }
+// user profile
+const getProfile = (req: AuthRequest, res: Response, next: NextFunction) => {
+    try {
+        const loggedUser = req.user
+        httpResponse(req, res, 201, responseMessage.SUCCESS, loggedUser)
+    } catch (error) {
+        httpError(next, error as Error, req, 500)
+    }
+}
 
+// logOut Auth
+const logout = async (req: AuthRequest, res: Response, next: NextFunction): Promise<void> => {
+    if (!req.user) {
+        httpError(next, new Error('Unauthorized'), req, 500)
+        return
+    }
+    await logoutUser(req.user.userId)
+    res.clearCookie('refreshToken')
+    httpResponse(req, res, 201, responseMessage.SUCCESS, 'Logged out successfully')
+}
+
+// All user
 const getAllUser = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
         const user = await prisma.user.findMany()
@@ -47,4 +69,4 @@ const getAllUser = async (req: Request, res: Response, next: NextFunction): Prom
         httpError(next, error as Error, req, 500)
     }
 }
-export { createUser, getAllUser, login }
+export { createUser, getAllUser, getProfile, login, logout }

@@ -1,7 +1,6 @@
 import { prisma } from '#lib/prisma.js'
 import { comparePassword, hashPassword } from '#utils/hash.js'
 import { generateAccessToken, generateRefreshToken } from '#utils/jwt.js'
-// import { Payload } from './../../generated/prisma/internal/prismaNamespace'
 
 import { CreateUserInput, LoginInput } from './auth.validation.js'
 
@@ -40,6 +39,7 @@ const loginUser = async (Payload: LoginInput) => {
     if (!user) {
         throw new Error('User not found')
     }
+
     const validUser = await comparePassword(Payload.password, user.password)
     if (!validUser) throw new Error('Invalid credentials')
 
@@ -56,4 +56,13 @@ const loginUser = async (Payload: LoginInput) => {
     return { accessToken, refreshToken }
 }
 
-export { createUserService, loginUser }
+const logoutUser = async (userId: number) => {
+    await prisma.user.update({
+        data: {
+            refreshToken: null
+        },
+        where: { id: userId }
+    })
+}
+
+export { createUserService, loginUser, logoutUser }

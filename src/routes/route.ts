@@ -10,7 +10,7 @@ const moduleRoutes = [
         route: ExpenseRoutes
     },
     {
-        path: '/user',
+        path: '/register',
         route: AuthRoutes
     }
 ]
