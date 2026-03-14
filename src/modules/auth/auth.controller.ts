@@ -3,6 +3,7 @@ import { prisma } from '#lib/prisma.js'
 import { httpError } from '#utils/httpError.js'
 import { httpResponse } from '#utils/httpResponse.js'
 import { NextFunction, Request, Response } from 'express'
+import status from 'http-status'
 
 import { AuthRequest } from './auth.interface.js'
 import { createUserService, loginUser, logoutUser } from './auth.service.js'
@@ -52,7 +53,7 @@ const getProfile = (req: AuthRequest, res: Response, next: NextFunction) => {
 // logOut Auth
 const logout = async (req: AuthRequest, res: Response, next: NextFunction): Promise<void> => {
     if (!req.user) {
-        httpError(next, new Error('Unauthorized'), req, 500)
+        httpError(next, new Error('Unauthorized'), req, status.UNAUTHORIZED)
         return
     }
     await logoutUser(req.user.userId)
